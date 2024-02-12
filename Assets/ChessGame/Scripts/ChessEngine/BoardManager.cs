@@ -142,6 +142,7 @@ namespace ChessGame.Scripts.ChessEngine {
                 _сhessmans[x, y] = _selectedChessman;
                 isWhiteTurn = !isWhiteTurn;
                 cameraControl.ChangeCameraTransform(isWhiteTurn);
+                menuCanvas.SetWhoseMoveNow(isWhiteTurn);
             }
             _selectedChessman.GetComponent<MeshRenderer>().material = _previousMat;
             boardHighlights.HideHighlights();
@@ -239,6 +240,7 @@ namespace ChessGame.Scripts.ChessEngine {
             _gameStarted = true;
             _gamePaused = false;
             cameraControl.ChangeCameraTransform(isWhiteTurn);
+            menuCanvas.SetWhoseMoveNow(isWhiteTurn);
         }
 
         public bool PauseOrResumeGame() {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-namespace ChessGame.Scripts {
+namespace ChessGame.Scripts.ChessEngine {
     public class BoardHighlights : MonoBehaviour {
         [SerializeField] private GameObject highlightPrefab;
         private List<GameObject> _highlights;

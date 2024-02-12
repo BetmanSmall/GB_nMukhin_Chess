@@ -1,5 +1,4 @@
-﻿using ChessGame.Scripts.ChessEngine;
-namespace ChessGame.Scripts {
+﻿namespace ChessGame.Scripts.ChessEngine {
     public class Pawn : Chessman {
         public override bool[,] PossibleMoves() {
             bool[,] r = new bool[8, 8];

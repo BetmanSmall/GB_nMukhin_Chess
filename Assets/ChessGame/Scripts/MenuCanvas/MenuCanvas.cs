@@ -4,9 +4,10 @@ using UnityEngine;
 namespace ChessGame.Scripts.MenuCanvas {
     public class MenuCanvas : MonoBehaviour {
         [SerializeField] private BoardManager boardManager;
+        [SerializeField] private TMP_Text whoseMoveTextTMP;
         [SerializeField] private GameObject mainPanel;
         [SerializeField] private GameObject mainPanelButtons;
-        [SerializeField] private TMP_Text tmpTextPlayButton;
+        [SerializeField] private TMP_Text playButtonTextTMP;
         [SerializeField] private GameObject selectedColor;
         [SerializeField] private EndGamePanel endGamePanel;
 
@@ -23,13 +24,26 @@ namespace ChessGame.Scripts.MenuCanvas {
             if (boardManager.GameStarted) {
                 bool gamePaused = boardManager.PauseOrResumeGame();
                 mainPanel.SetActive(gamePaused);
-                tmpTextPlayButton.text = "Resume";
+                playButtonTextTMP.text = "Resume";
             }
         }
 
         public void GameEnded(string whoWin) {
             endGamePanel.SetWhoWinText(whoWin);
-            tmpTextPlayButton.text = "Play";
+            playButtonTextTMP.text = "Play";
+        }
+
+        public void SetWhoseMoveNow(bool isWhiteTurn) {
+            string whoMoveText = isWhiteTurn ? "White Turn!" : "Black Turn!";
+            whoseMoveTextTMP.text = whoMoveText;
+            whoseMoveTextTMP.color = isWhiteTurn ? Color.white : Color.black;
+        }
+
+        public void QuitGame() {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            Application.Quit();
         }
     }
 }

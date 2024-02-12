@@ -52,7 +52,6 @@ public class CameraTargetOrientationScript : MonoBehaviour {
             transform.LookAt(target);
         }
 #endif
-
         // Rotating camera with touch dragging on mobiles.
 #if UNITY_ANDROID || UNITY_IOS
         if (enableRotation && (Input.touchCount==1)) {
@@ -68,9 +67,9 @@ public class CameraTargetOrientationScript : MonoBehaviour {
             // Translating camera on PC with mouse wheel.
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
             float mouseScrollWheel = Input.GetAxis("Mouse ScrollWheel");
-            _zoomAmountMouse += mouseScrollWheel;
-            _zoomAmountMouse = Mathf.Clamp(_zoomAmountMouse, -_maxToClampMouse, _maxToClampMouse);
             if ((mouseScrollWheel > 0 && transform.position.y > zoomMouseMin) || (mouseScrollWheel < 0 && transform.position.y < zoomMouseMax)) {
+                _zoomAmountMouse += mouseScrollWheel;
+                _zoomAmountMouse = Mathf.Clamp(_zoomAmountMouse, -_maxToClampMouse, _maxToClampMouse);
                 var translate = Mathf.Min(Mathf.Abs(mouseScrollWheel), _maxToClampMouse - Mathf.Abs(_zoomAmountMouse));
                 float z = translate * zoomSpeedMouse * Mathf.Sign(mouseScrollWheel);
                 transform.Translate(0, 0, z);

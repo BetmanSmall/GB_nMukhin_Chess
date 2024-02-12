@@ -1,4 +1,4 @@
-﻿namespace ChessGame.Scripts {
+﻿namespace ChessGame.Scripts.ChessEngine {
     public class Rook : Chessman {
         public override bool[,] PossibleMoves() {
             bool[,] r = new bool[8, 8];
