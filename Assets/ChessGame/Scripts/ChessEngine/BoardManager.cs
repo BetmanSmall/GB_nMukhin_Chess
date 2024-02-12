@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ChessGame.Scripts.MenuCanvas;
 using UnityEngine;
 namespace ChessGame.Scripts.ChessEngine {
     public class BoardManager : MonoBehaviour {
@@ -26,6 +27,7 @@ namespace ChessGame.Scripts.ChessEngine {
         public bool GameStarted => _gameStarted;
         [SerializeField] private bool _gamePaused;
         [SerializeField] private MenuCanvas.MenuCanvas menuCanvas;
+        [SerializeField] private AudioManager audioManager;
 
         private void Start() {
             Instance = this;
@@ -48,9 +50,6 @@ namespace ChessGame.Scripts.ChessEngine {
                         }
                     }
                 }
-                // if (Input.GetKey("escape")) {
-                //     Application.Quit();
-                // }
             }
         }
 
@@ -87,10 +86,12 @@ namespace ChessGame.Scripts.ChessEngine {
                 return;
             }
             _selectedChessman = _сhessmans[x, y];
-            _previousMat = _selectedChessman.GetComponent<MeshRenderer>().material;
+            MeshRenderer meshRenderer = _selectedChessman.GetComponent<MeshRenderer>();
+            _previousMat = meshRenderer.material;
             selectedMat.mainTexture = _previousMat.mainTexture;
-            _selectedChessman.GetComponent<MeshRenderer>().material = selectedMat;
+            meshRenderer.material = selectedMat;
             boardHighlights.HighLightAllowedMoves(_allowedMoves);
+            audioManager.PlayRandomChessmanPickUp();
         }
 
         private void MoveChessman(int x, int y) {
@@ -147,6 +148,7 @@ namespace ChessGame.Scripts.ChessEngine {
             _selectedChessman.GetComponent<MeshRenderer>().material = _previousMat;
             boardHighlights.HideHighlights();
             _selectedChessman = null;
+            audioManager.PlayRandomChessmanDropDown();
         }
 
         private void SpawnChessman(int index, int x, int y, bool isWhite) {
@@ -232,6 +234,7 @@ namespace ChessGame.Scripts.ChessEngine {
             boardHighlights.HideHighlights();
             _gameStarted = false;
             menuCanvas.GameEnded(whoWin);
+            audioManager.PlayRandomChessGameOver();
         }
 
         public void StartGame(bool whiteStart) {

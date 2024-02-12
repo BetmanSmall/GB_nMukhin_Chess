@@ -8,6 +8,9 @@ namespace ChessGame.Scripts.MenuCanvas {
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private Button[] allButtons;
         private bool _audioMuted = false;
+        [SerializeField] private AudioClip[] chessPickUpChessmanClips;
+        [SerializeField] private AudioClip[] chessDropDownChessmanClips;
+        [SerializeField] private AudioClip[] chessGameOverClips;
 
         private void Reset() {
             audioListener = Camera.main.GetComponent<AudioListener>();
@@ -36,6 +39,21 @@ namespace ChessGame.Scripts.MenuCanvas {
 
         public void PlayAudioClip(AudioClip audioClip) {
             audioSource.PlayOneShot(audioClip);
+        }
+
+        public void PlayRandomChessmanPickUp() {
+            int index = Random.Range(0, chessPickUpChessmanClips.Length);
+            PlayAudioClip(chessPickUpChessmanClips[index]);
+        }
+
+        public void PlayRandomChessmanDropDown() {
+            int index = Random.Range(0, chessDropDownChessmanClips.Length);
+            PlayAudioClip(chessDropDownChessmanClips[index]);
+        }
+
+        public void PlayRandomChessGameOver() {
+            int index = Random.Range(0, chessGameOverClips.Length);
+            PlayAudioClip(chessGameOverClips[index]);
         }
     }
 }
