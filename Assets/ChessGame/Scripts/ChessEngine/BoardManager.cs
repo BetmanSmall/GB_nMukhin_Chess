@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ChessGame.Scripts.Customization;
 using ChessGame.Scripts.MenuCanvas;
 using UnityEngine;
 namespace ChessGame.Scripts.ChessEngine {
@@ -162,6 +163,7 @@ namespace ChessGame.Scripts.ChessEngine {
             go.transform.SetParent(transform);
             _сhessmans[x, y] = go.GetComponent<Chessman>();
             _сhessmans[x, y].SetPosition(x, y);
+            _сhessmans[x, y].chessmanType = (ChessmanType)index;
             _activeChessman.Add(go);
         }
 
@@ -253,6 +255,17 @@ namespace ChessGame.Scripts.ChessEngine {
         private bool PauseOrResumeGame(bool pause) {
             _gamePaused = pause;
             return _gamePaused;
+        }
+
+        public List<Chessman> GetActiveChessmans() {
+            List<Chessman> chessmans = new List<Chessman>();
+            foreach (GameObject activeChessmanGameObject in _activeChessman) {
+                Chessman chessman = activeChessmanGameObject.GetComponent<Chessman>();
+                if (chessman != null) {
+                    chessmans.Add(chessman);
+                }
+            }
+            return chessmans;
         }
     }
 }

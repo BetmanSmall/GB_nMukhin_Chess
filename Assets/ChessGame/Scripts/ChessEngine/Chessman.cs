@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using ChessGame.Scripts.Customization;
+using UnityEngine;
 namespace ChessGame.Scripts.ChessEngine {
     public abstract class Chessman : MonoBehaviour {
         public int CurrentX { set; get; }
         public int CurrentY { set; get; }
         public bool isWhite;
+        public ChessmanType chessmanType;
 
         public void SetPosition(int x, int y) {
             CurrentX = x;
